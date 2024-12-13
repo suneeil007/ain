@@ -3,7 +3,6 @@ import React, { useState, useEffect } from 'react';
 const Header = () => {
   const [isMobileMenuVisible, setMobileMenuVisible] = useState(false);
   const [dropdownStates, setDropdownStates] = useState({});
-  const [isSticky, setIsSticky] = useState(false);
 
   const toggleMobileMenu = () => {
     setMobileMenuVisible((prev) => !prev);
@@ -27,29 +26,6 @@ const Header = () => {
       document.body.classList.remove('mobile-menu-visible');
     };
   }, [isMobileMenuVisible]);
-
-  // Sticky menu on scroll
-  useEffect(() => {
-    const handleScroll = () => {
-      const scroll = window.scrollY;
-      if (scroll < 245) {
-        setIsSticky(false);
-        document.querySelector('#sticky-header')?.classList.remove('sticky-menu');
-        document.querySelector('.scroll-to-target')?.classList.remove('open');
-        document.querySelector('#header-fixed-height')?.classList.remove('active-height');
-      } else {
-        setIsSticky(true);
-        document.querySelector('#sticky-header')?.classList.add('sticky-menu');
-        document.querySelector('.scroll-to-target')?.classList.add('open');
-        document.querySelector('#header-fixed-height')?.classList.add('active-height');
-      }
-    };
-
-    window.addEventListener('scroll', handleScroll);
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-    };
-  }, []);
 
   const menuItems = [
     { label: 'Home', link: '#' },
@@ -94,17 +70,8 @@ const Header = () => {
             </div>
           </div>
           <div className="tg-header__right-side">
-            <div id="sticky-header" className={`tg-header__area tg-header__area-two ${isSticky ? 'sticky-menu' : ''}`}>
+            <div id="sticky-header" className="tg-header__area tg-header__area-two">
               <nav className="tgmenu__nav">
-              <div className="logo d-none">
-                  <a href="#">
-                    <img 
-                      src="https://ain.org.np/public/images/logo.png" 
-                      alt="Logo" 
-                    />
-                  </a>
-                </div>
-
                 <div className="tgmenu__navbar-wrap tgmenu__main-menu d-none d-lg-flex justify-content-end">
                   <ul className="navigation">
                     {menuItems.map((item, index) => (
@@ -128,7 +95,14 @@ const Header = () => {
                     ))}
                   </ul>
                 </div>
-                
+                <div className="logo d-none">
+                <a href="#">
+                  <img 
+                    src="https://ain.org.np/public/images/logo.png" 
+                    alt="Logo" 
+                  />
+                </a>
+              </div>
                 <div
                   className="mobile-nav-toggler mobile-nav-toggler-two"
                   onClick={toggleMobileMenu}
