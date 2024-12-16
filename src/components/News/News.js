@@ -1,90 +1,108 @@
 import React from 'react';
-import { Box, Card, CardMedia, Typography, useMediaQuery, ThemeProvider, createTheme } from '@mui/material';
-import 'bootstrap/dist/css/bootstrap.min.css'; // Import Bootstrap CSS
+import { Card, CardContent, CardMedia, CardActions, Typography, Button, Stack } from '@mui/material';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
-const newsArticles = [
-  { title: "Pedal Power: I Never Miss a Day at School", image: "https://www.ain.org.np/uploads/1643032157W260-0372-011.jpg", url: "#link1" },
-  { title: "Clean Water for a Better Future", image: "https://www.ain.org.np/uploads/1643032157W260-0372-011.jpg", url: "#link2" },
-  { title: "Safe Accessible Water for Rural Nepal", image: "https://www.ain.org.np/uploads/1643032157W260-0372-011.jpg", url: "#link3" },
-];
-
-const News = () => {
-  // Media queries for responsive layout
-  const isMobile = useMediaQuery((theme) => theme.breakpoints.down('sm')); // For mobile
-  const isTablet = useMediaQuery((theme) => theme.breakpoints.between('sm', 'md')); // For tablets
-
-  // Define number of columns based on the screen size
-  const columns = isMobile ? 1 : isTablet ? 2 : 3;
+export default function News() {
+  const newsList = [
+    {
+      id: 1,
+      title: 'Lizard',
+      description: 'Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging across all continents except Antarctica.',
+      image: 'https://www.ain.org.np/uploads/1643098306Alisha_Budha_s%20Story_Community-based.jpg',
+    },
+    {
+      id: 2,
+      title: 'Chameleon',
+      description: 'Chameleons are a distinctive and highly specialized clade of lizards known for their ability to change color.',
+      image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/70/Chamaeleo_calyptratus_on_tree.jpg/640px-Chamaeleo_calyptratus_on_tree.jpg',
+    },
+    {
+      id: 3,
+      title: 'Gecko',
+      description: 'Geckos are small, nocturnal lizards found in warm climates. They are known for their unique vocalizations.',
+      image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/2e/House_Gecko_%28Hemidactylus_sp.%29.jpg/640px-House_Gecko_%28Hemidactylus_sp.%29.jpg',
+    },
+  ];
 
   return (
-    <div className="custom_container mt-4"> {/* Bootstrap container */}
-      <Box
-        sx={{
-          display: 'grid',
-          gridTemplateColumns: `repeat(${columns}, 1fr)`, // Adjust columns based on screen size
-          gap: 10, // Space between items
-          padding: isMobile ? 2 : 8, // Less padding on small screens
-        }}
-      >
-        {newsArticles.map((article, index) => (
-          <Card
-            key={index}
-            sx={{
-              position: 'relative', // For positioning the title over the image
-              borderRadius: 2, // Rounded corners
-              overflow: 'hidden', // Clip content inside the card
-              boxShadow: '0 4px 10px rgba(0, 0, 0, 0.2)', // Elegant shadow
-            }}
-          >
+    <section style={{ width: '100%', backgroundColor: '#f1f1f1', padding: '80px 0' }}>
+      <div className="container" style={{ display: 'flex', gap: '20px' }}>
+        {/* Left Side - Featured Card */}
+        <div style={{ flex: 1 }}>
+        <Card sx={{ height: '100%', position: 'relative', color: 'white' }}>
+          <div style={{ position: 'relative', height: '100%', overflow: 'hidden' }}>
+            {/* Background Image */}
             <CardMedia
-              component="img"
-              image={article.image}
-              alt={article.title}
-              sx={{
-                objectFit: 'cover', // Ensure the image covers the space correctly
-                borderRadius: '10px', // Optional: rounded corners
-              }}
+              sx={{ height: '100%', filter: 'brightness(0.7)' }}
+              image="https://www.ain.org.np/uploads/1643098306Alisha_Budha_s%20Story_Community-based.jpg"
+              title="Featured News"
             />
-            {/* Title with no background */}
-            <Box
-              sx={{
-                position: 'absolute', // Float the title over the image
-                bottom: 0, // Position at the bottom
-                width: '100%', // Full width of the card
-                textAlign: 'center', // Center the text
-                padding: 2, // Padding inside the title box
-                background: 'rgba(0, 0, 0, 0.5)', // Optional: slightly darkened background for readability
+            {/* Overlay Content */}
+            <div
+              style={{
+                position: 'absolute',
+                bottom: 0,
+                left: 0,
+                right: 0,
+                padding: '20px',
+                background: 'rgba(0, 0, 0, 0.6)', // Semi-transparent background
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'flex-end',
+                textAlign: 'left',
               }}
             >
-              <a
-                href={article.url}  // Anchor tag with the URL
-                style={{
-                  textDecoration: 'none', // Remove default underline
-                  color: 'white', // White text
-                  fontSize: isMobile ? '1.5rem' : isTablet ? '1.75rem' : '2.0rem', // Adjust font size based on screen size
-                  fontWeight: 'bold', // Make title bold
-                  lineHeight: 1.2, // Adjust line height
-                  display: 'block', // Make it block-level for better spacing on smaller screens
-                  paddingBottom: '1rem', // Add bottom padding for better spacing
-                }}
-              >
-                {article.title}
-              </a>
-            </Box>
-          </Card>
-        ))}
-      </Box>
-    </div>
-  );
-};
+              <Typography variant="h5" component="div" gutterBottom>
+              Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging across all continents except Antarctica.
+              </Typography>
+              <Typography variant="body1" sx={{ marginBottom: '10px', color: 'white' }}>
+                july 24, 2024
+              </Typography>
+              <Button variant="contained" color="primary" size="small">
+                Learn More
+              </Button>
+            </div>
+          </div>
+        </Card>
 
-const App = () => {
-  const theme = createTheme(); // You can customize the theme if needed
-  return (
-    <ThemeProvider theme={theme}>
-      <News />
-    </ThemeProvider>
-  );
-};
+        </div>
 
-export default App;
+        {/* Right Side - News List */}
+        <div style={{ flex: 1 }}>
+          {newsList.map((news) => (
+            <div
+              key={news.id}
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                marginBottom: '20px',
+                background: '#fff',
+                borderRadius: '8px',
+                boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
+                overflow: 'hidden',
+              }}
+            >
+              <CardMedia
+                component="img"
+                style={{ width: '150px', height: '100px', objectFit: 'cover' }}
+                image={news.image}
+                alt={news.title}
+              />
+              <div style={{ flex: 1, padding: '16px' }}>
+                <Typography variant="h6" component="div" gutterBottom>
+                  {news.title}
+                </Typography>
+                <Typography variant="body2" style={{ color: '#666' }}>
+                  {news.description}
+                </Typography>
+                <Button size="small" style={{ marginTop: '10px' }}>
+                  Learn More
+                </Button>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}

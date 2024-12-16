@@ -23,7 +23,7 @@ const BrandSlider = () => {
             <Swiper
                 modules={[Navigation, Pagination, Autoplay]}
                 spaceBetween={20}
-                slidesPerView={3}
+                slidesPerView={4}
                 navigation
                 pagination={{ clickable: true }}
                 autoplay={{ delay: 2000 }}
@@ -34,7 +34,7 @@ const BrandSlider = () => {
                     <img
                     src={brand.logo}
                     alt={brand.alt}
-                    style={{ width: "100%", height: "auto" }}
+                    style={{ width: "60%", height: "auto" }}
                     />
                 </SwiperSlide>
                 ))}

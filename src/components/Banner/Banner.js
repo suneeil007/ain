@@ -11,12 +11,12 @@ const bannerData = [
     subtitle: 'Discover amazing features and exciting content.',
   },
   {
-    image: 'https://via.placeholder.com/1920x1080/00aaff/ffffff?text=Slide+2',
+    image: 'https://www.ain.org.np/uploads/1643785873VFNEP77re.jpg',
     title: 'Explore Our Services',
     subtitle: 'We provide world-class services to empower your business.',
   },
   {
-    image: 'https://via.placeholder.com/1920x1080/ffaa00/ffffff?text=Slide+3',
+    image: 'https://www.ain.org.np/uploads/1643785755reVFNEP52.jpg',
     title: 'Contact Us Today',
     subtitle: 'Let us help you achieve your goals with our expertise.',
   },
