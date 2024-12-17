@@ -1,4 +1,7 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
+
+
 import axios from 'axios';
 
 const Header = () => {
@@ -20,37 +23,6 @@ const Header = () => {
     }));
   };
 
-  // Manage body class for mobile menu visibility
-  useEffect(() => {
-    if (isMobileMenuVisible) {
-      document.body.classList.add('mobile-menu-visible');
-    } else {
-      document.body.classList.remove('mobile-menu-visible');
-    }
-    return () => {
-      document.body.classList.remove('mobile-menu-visible');
-    };
-  }, [isMobileMenuVisible]);
-
-  // Sticky menu on scroll
-  useEffect(() => {
-    const handleScroll = () => {
-      const scroll = window.scrollY;
-      if (scroll < 245) {
-        setIsSticky(false);
-        document.querySelector('#sticky-header')?.classList.remove('sticky-menu');
-      } else {
-        setIsSticky(true);
-        document.querySelector('#sticky-header')?.classList.add('sticky-menu');
-      }
-    };
-
-    window.addEventListener('scroll', handleScroll);
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-    };
-  }, []);
-
   // Fetch and process menu items from API
   useEffect(() => {
     const fetchMenuItems = async () => {
@@ -64,17 +36,17 @@ const Header = () => {
           .filter((page) => page.parent_id === 0)
           .map((parentPage) => ({
             label: parentPage.title,
-            link: parentPage.slug || '#',
+            link: parentPage.post_type === 'page' ? `/pages/${parentPage.slug}` : `/${parentPage.slug}`,
             subMenu: pages
               .filter((childPage) => childPage.parent_id === parentPage.id)
               .map((subPage) => ({
                 label: subPage.title,
-                link: subPage.slug || '#',
+                link: subPage.post_type === 'page' ? `/pages/${subPage.slug}` : `/${subPage.slug}`,
                 subMenu: pages
                   .filter((thirdPage) => thirdPage.parent_id === subPage.id)
                   .map((thirdPage) => ({
                     label: thirdPage.title,
-                    link: thirdPage.slug || '#',
+                    link: thirdPage.post_type === 'page' ? `/pages/${thirdPage.slug}` : `/${thirdPage.slug}`,
                   })),
               })),
           }));
@@ -104,43 +76,43 @@ const Header = () => {
         <div className="tg-header__inner-wrap">
           <div className="tg-header__logo-wrap">
             <div className="logo">
-              <a href="#">
+              <Link to="/">
                 <img
                   src="https://ain.org.np/public/images/logo.png"
                   alt="AIN Logo"
-                  style={{ width: '70%', display: 'block' }}
+                  style={{ width: '55%', display: 'block' }}
                 />
-              </a>
+              </Link>
             </div>
           </div>
           <div className="tg-header__right-side">
             <div id="sticky-header" className={`tg-header__area tg-header__area-two ${isSticky ? 'sticky-menu' : ''}`}>
               <nav className="tgmenu__nav">
                 <div className="logo d-none">
-                  <a href="#">
+                  <Link to="/">
                     <img src="https://ain.org.np/public/images/logo.png" alt="Logo" />
-                  </a>
+                  </Link>
                 </div>
 
                 <div className="tgmenu__navbar-wrap tgmenu__main-menu d-none d-lg-flex justify-content-end">
                   <ul className="navigation">
                     {menuItems.map((item, index) => (
                       <li key={index} className={item.subMenu && item.subMenu.length > 0 ? 'menu-item-has-children' : ''}>
-                        <a href={item.subMenu && item.subMenu.length > 0 ? '#' : item.link}>
+                        <Link to={item.subMenu && item.subMenu.length > 0 ? '#' : item.link}>
                           {item.label}
-                        </a>
+                        </Link>
                         {item.subMenu && item.subMenu.length > 0 && (
                           <ul className="sub-menu">
                             {item.subMenu.map((subItem, subIndex) => (
                               <li key={subIndex} className={subItem.subMenu && subItem.subMenu.length > 0 ? 'menu-item-has-children' : ''}>
-                                <a href={subItem.subMenu && subItem.subMenu.length > 0 ? '#' : subItem.link}>
+                                <Link to={subItem.subMenu && subItem.subMenu.length > 0 ? '#' : subItem.link}>
                                   {subItem.label}
-                                </a>
+                                </Link>
                                 {subItem.subMenu && subItem.subMenu.length > 0 && (
                                   <ul className="sub-menu">
                                     {subItem.subMenu.map((thirdItem, thirdIndex) => (
                                       <li key={thirdIndex}>
-                                        <a href={thirdItem.link}>{thirdItem.label}</a>
+                                        <Link to={thirdItem.link}>{thirdItem.label}</Link>
                                       </li>
                                     ))}
                                   </ul>
@@ -161,92 +133,6 @@ const Header = () => {
             </div>
           </div>
         </div>
-      </div>
-
-      {/* Mobile Menu */}
-      <div className={`tgmobile__menu ${isMobileMenuVisible ? 'active' : ''}`}>
-        <nav className="tgmobile__menu-box">
-          <div className="close-btn" onClick={toggleMobileMenu}>
-            <i className="fa fa-times"></i>
-          </div>
-          <div className="nav-logo">
-            <a href="#">
-              <img src="https://ain.org.np/public/images/logo.png" alt="Logo" />
-            </a>
-          </div>
-          <ul className="navigation">
-            {menuItems.map((item, index) => (
-              <li key={index} className={item.subMenu && item.subMenu.length > 0 ? 'menu-item-has-children' : ''}>
-                <a href={item.subMenu && item.subMenu.length > 0 ? '#' : item.link}>{item.label}</a>
-                {item.subMenu && item.subMenu.length > 0 && (
-                  <>
-                    <div className="dropdown-btn" onClick={() => toggleDropdown(index)} aria-expanded={dropdownStates[index]}>
-                      <span className="plus-line"></span>
-                    </div>
-                    <ul className="sub-menu" style={{ display: dropdownStates[index] ? 'block' : 'none' }}>
-                      {item.subMenu.map((subItem, subIndex) => (
-                        <li key={subIndex}>
-                          <a href={subItem.link}>{subItem.label}</a>
-                          {subItem.subMenu && subItem.subMenu.length > 0 && (
-                            <ul className="third-level-menu">
-                              {subItem.subMenu.map((thirdItem, thirdIndex) => (
-                                <li key={thirdIndex}>
-                                  <a href={thirdItem.link}>{thirdItem.label}</a>
-                                </li>
-                              ))}
-                            </ul>
-                          )}
-                        </li>
-                      ))}
-                    </ul>
-                  </>
-                )}
-              </li>
-            ))}
-          </ul>
-
-          <div className="tgmobile__menu-bottom">
-            <div className="contact-info">
-              <ul className="list-wrap">
-                <li>
-                  <a href="mailto:info@ecoconcern.com.np">info@ecoconcern.com.np</a>
-                </li>
-                <li>
-                  <a href="tel:977-01-5421513">+977-01-5421513</a>
-                </li>
-              </ul>
-            </div>
-            <div className="social-links">
-              <ul className="list-wrap">
-                <li>
-                  <a href="#">
-                    <i className="fa fa-facebook-f"></i>
-                  </a>
-                </li>
-                <li>
-                  <a href="#">
-                    <i className="fa fa-twitter"></i>
-                  </a>
-                </li>
-                <li>
-                  <a href="#">
-                    <i className="fa fa-instagram"></i>
-                  </a>
-                </li>
-                <li>
-                  <a href="#">
-                    <i className="fa fa-linkedin-in"></i>
-                  </a>
-                </li>
-                <li>
-                  <a href="#">
-                    <i className="fa fa-youtube"></i>
-                  </a>
-                </li>
-              </ul>
-            </div>
-          </div>
-        </nav>
       </div>
     </header>
   );

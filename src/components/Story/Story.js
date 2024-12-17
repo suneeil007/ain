@@ -17,13 +17,14 @@ const Story = () => {
   const columns = isMobile ? 1 : isTablet ? 2 : 3;
 
   return (
-    <div className="custom_container mt-4"> {/* Bootstrap container */}
+    <div className="container mt-4"> {/* Bootstrap container */}
       <Box
         sx={{
           display: 'grid',
           gridTemplateColumns: `repeat(${columns}, 1fr)`, // Adjust columns based on screen size
           gap: 10, // Space between items
-          padding: isMobile ? 2 : 8, // Less padding on small screens
+          paddingTop: isMobile ? 2 : 8,  // Less padding on small screens (top)
+          paddingBottom: isMobile ? 2 : 8,  // Less padding on small screens (bottom)
         }}
       >
         {storyArticles.map((article, index) => (

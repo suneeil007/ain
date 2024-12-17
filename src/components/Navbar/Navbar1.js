@@ -97,14 +97,8 @@ const Header = () => {
     fetchMenuItems();
   }, []);
 
-  // if (loading) {
-  //   return <div>Loading menu...</div>;
-  // }
-
   if (loading) {
-    return <div>
-       <div class="loader"></div>
-    </div>;
+    return <div>Loading menu...</div>;
   }
 
   if (error) {
