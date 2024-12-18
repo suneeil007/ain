@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
+import Breadcrumb from '../components/Breadcrumb/Breadcrumb';
 
 const ContentPage = () => {
   const { slug } = useParams();
@@ -37,7 +38,16 @@ const ContentPage = () => {
 
   if (error) return <div>{error}</div>;
 
+
+  // console.log(content.image);
+
   return (
+ <>
+    <Breadcrumb
+    title={content.title}
+    backgroundImage={content.image}
+    />
+
     <div className="container mt-4"> 
       <h1>{content.title}</h1>
       <p>{content.keywords}</p>
@@ -51,7 +61,10 @@ const ContentPage = () => {
       {/* Optionally, render the image */}
       {content.image && <img src={content.image} alt={content.title} className='d-none'/>}
     </div>
-  );
+
+ </>
+  
+  ); 
 };
 
 export default ContentPage;

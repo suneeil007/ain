@@ -2,17 +2,21 @@
 @import "~slick-carousel/slick/slick-theme.css";
 
 :root {
-  --tg-body-font-family: 'Inter', sans-serif;
+  /* --tg-body-font-family: 'Inter', sans-serif;
   --tg-heading-font-family: 'Outfit', sans-serif;
+   */
+  --tg-body-font-family: 'PT Sans', sans-serif;
+  --tg-heading-font-family: 'PT Sans', sans-serif;
+
   --tg-icon-font-family: "Font Awesome 5 Free";
-  --tg-body-font-size: 16px;
+  --tg-body-font-size: 18px;
   --tg-body-line-height: 1.5;
   --tg-heading-line-height: 1.2;
   --tg-body-color: #221f1f;
   --tg-heading-color: #000;
-  --tg-theme-primary: #040404;
+  --tg-theme-primary: #ffca08;
   --tg-theme-secondary: #191D88;
-  --tg-color-dark-blue: #726d6d;
+  --tg-color-dark-blue: #093f89;
   --tg-color-yellow-light: #FEF6E6;
   --tg-color-yellow-light-2: #FFFBF3;
   --tg-color-yellow-light-3: #F5EACD;
@@ -910,7 +914,8 @@ textarea {
 }
 .breadcrumb__content .title {
   margin-bottom: 10px;
-  font-size: 48px;
+  font-size: 55px;
+  font-weight: bolder;
 }
 @media (max-width: 991.98px) {
   .breadcrumb__content .title {
@@ -1576,7 +1581,7 @@ textarea {
 }
 .tgmenu__navbar-wrap > ul > li a {
   font-size: 16px;
-  /*font-weight: 500;*/
+  font-weight: 500;
   text-transform: capitalize;
   color: var(--tg-color-dark-blue);
   padding: 42px 0px;
@@ -1657,7 +1662,7 @@ textarea {
   transform: scale(1);
 }
 .tgmenu__navbar-wrap > ul > li.active a, .tgmenu__navbar-wrap > ul > li:hover a {
-  color: #000;
+  color: var(--tg-theme-primary);
 }
 .tgmenu__main-menu li.menu-item-has-children .dropdown-btn {
   display: none;
@@ -5263,7 +5268,7 @@ textarea {
 }
 .adeedd p, table, ul, li,a {
     color: var(--tg-color-dark-blue);
-        font-size: 15px;
+        font-size: 18px;
 }
 .services__content-five p {
   margin-bottom: 25px;
@@ -14822,6 +14827,12 @@ footer p {
     padding: 150px 0 100px !important;
 }
 
+.breadcrumb__module_bg {
+  background-size: cover;
+  background-position: center;
+  padding: 300px 0 300px !important;
+}
+
 .custom-swiper {
   max-width: 100%;
   position: relative;
@@ -14830,10 +14841,10 @@ footer p {
 
 
 .brand-box {
-  width: 200px;
-  height: 200px;
+  width: 275px;
+  height: 275px;
   border-radius: 50%;
-  background-color: #e6e9eb;
+  background-color: #fff;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -14868,3 +14879,39 @@ footer p {
     100% {background-size:100%}
 }
 
+/* .swiper {
+  margin-left: 15%  !important;
+  margin-right: 15% !important;
+} */
+
+.banner-content h3 {
+  font-weight: bolder;
+  font-size: 4em;
+}
+
+.breadcrumb_module_title {
+  font-weight: bolder;
+  font-size: 5em;
+}
+
+.content-details {
+  font-size: 18px;
+}
+
+.swiper-pagination {
+  position: absolute !important;  /* Make sure it's positioned absolutely */
+  bottom: 0 !important;  /* Position it to the bottom */
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  z-index: 9999999999 !important;  /* High z-index */
+  padding-bottom: 20px;  /* Space below pagination */
+}
+
+.swiper-wrapper {
+  overflow: visible !important;
+}
+
+.swiper-slide {
+  overflow: visible !important;
+}

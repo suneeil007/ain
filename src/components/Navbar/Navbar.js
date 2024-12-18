@@ -103,7 +103,7 @@ const Header = () => {
 
   if (loading) {
     return <div>
-       <div class="loader"></div>
+       <div className="loader"></div>
     </div>;
   }
 

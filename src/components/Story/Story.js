@@ -1,86 +1,188 @@
-import React from 'react';
-import { Box, Card, CardMedia, Typography, useMediaQuery, ThemeProvider, createTheme } from '@mui/material';
-import 'bootstrap/dist/css/bootstrap.min.css'; // Import Bootstrap CSS
-
-const storyArticles = [
-  { title: "Pedal Power: I Never Miss a Day at School", image: "https://www.ain.org.np/uploads/1643032157W260-0372-011.jpg", url: "#link1" },
-  { title: "Clean Water for a Better Future", image: "https://www.ain.org.np/uploads/1643098306Alisha_Budha_s%20Story_Community-based.jpg", url: "#link2" },
-  { title: "Safe Accessible Water for Rural Nepal", image: "https://www.ain.org.np/uploads/1643097736Prerana%20Chanda_Continuing.jpg", url: "#link3" },
-];
+import React, { useEffect, useState } from 'react';
+import { Box, Card, CardMedia, Typography, Button, useMediaQuery, ThemeProvider, createTheme } from '@mui/material';
+import 'bootstrap/dist/css/bootstrap.min.css'; 
+import { motion } from 'framer-motion'; 
+import axios from 'axios';
 
 const Story = () => {
-  // Media queries for responsive layout
-  const isMobile = useMediaQuery((theme) => theme.breakpoints.down('sm')); // For mobile
-  const isTablet = useMediaQuery((theme) => theme.breakpoints.between('sm', 'md')); // For tablets
+  const [storyArticles, setStoryArticles] = useState([]);
 
-  // Define number of columns based on the screen size
+  useEffect(() => {
+    
+    axios.get('https://intellisoftnepal.com.np/ain/public/api/stories')
+      .then((response) => {
+        if (response.data.success) {
+          setStoryArticles(response.data.data);
+        }
+      })
+      .catch((error) => {
+        console.error('Error fetching story data:', error);
+      });
+  }, []);
+
+  
+  const isMobile = useMediaQuery((theme) => theme.breakpoints.down('sm')); 
+  const isTablet = useMediaQuery((theme) => theme.breakpoints.between('sm', 'md')); 
+
+  
   const columns = isMobile ? 1 : isTablet ? 2 : 3;
 
+  
+  const cardVariants = {
+    hidden: { opacity: 0, y: 50 }, 
+    visible: { opacity: 1, y: 0, transition: { duration: 0.6 } }, 
+  };
+
+  
+const articlesToShow = storyArticles.slice(0, 3);
+
+const trimDescription = (description, wordLimit = 15) => {
+  const cleanDescription = description.replace(/<[^>]*>/g, '');
+  const words = cleanDescription.split(' ');
+  return words.length > wordLimit ? words.slice(0, wordLimit).join(' ') + '...' : cleanDescription;
+};
+
   return (
-    <div className="container mt-4"> {/* Bootstrap container */}
+    <div className="container mt-4"> 
+
+
+    <Typography
+      variant="h2"
+      color={'black'}
+      sx={{
+        mb: 2,
+        mt: 10, 
+        textTransform: 'uppercase', 
+        fontWeight: 'bold', 
+      }}
+    >
+      Featured Stories
+    </Typography>
+
       <Box
         sx={{
           display: 'grid',
-          gridTemplateColumns: `repeat(${columns}, 1fr)`, // Adjust columns based on screen size
-          gap: 10, // Space between items
-          paddingTop: isMobile ? 2 : 8,  // Less padding on small screens (top)
-          paddingBottom: isMobile ? 2 : 8,  // Less padding on small screens (bottom)
+          gridTemplateColumns: `repeat(${columns}, 1fr)`,
+          gap: 10, 
+          paddingTop: isMobile ? 2 : 8,  
+          paddingBottom: isMobile ? 2 : 8, 
         }}
       >
-        {storyArticles.map((article, index) => (
-          <Card
+        {articlesToShow.map((article, index) => (
+          <motion.div
             key={index}
-            sx={{
-              position: 'relative', // For positioning the title over the image
-              borderRadius: 2, // Rounded corners
-              overflow: 'hidden', // Clip content inside the card
-              boxShadow: '0 4px 10px rgba(0, 0, 0, 0.2)', // Elegant shadow
-            }}
+            variants={cardVariants} ts
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.2 }} 
           >
-            <CardMedia
-              component="img"
-              image={article.image}
-              alt={article.title}
+            <Card
               sx={{
-                objectFit: 'cover', // Ensure the image covers the space correctly
-                borderRadius: '10px', // Optional: rounded corners
-              }}
-            />
-            {/* Title with no background */}
-            <Box
-              sx={{
-                position: 'absolute', // Float the title over the image
-                bottom: 0, // Position at the bottom
-                width: '100%', // Full width of the card
-                textAlign: 'center', // Center the text
-                padding: 2, // Padding inside the title box
-                background: 'rgba(0, 0, 0, 0.5)', // Optional: slightly darkened background for readability
+                position: 'relative',
+                borderRadius: 2,
+                overflow: 'hidden', 
+                boxShadow: '0 4px 10px rgba(0, 0, 0, 0.2)', 
               }}
             >
-              <a
-                href={article.url}  // Anchor tag with the URL
-                style={{
-                  textDecoration: 'none', // Remove default underline
-                  color: 'white', // White text
-                  fontSize: isMobile ? '1.5rem' : isTablet ? '1.75rem' : '2.0rem', // Adjust font size based on screen size
-                  fontWeight: 'bold', // Make title bold
-                  lineHeight: 1.2, // Adjust line height
-                  display: 'block', // Make it block-level for better spacing on smaller screens
-                  paddingBottom: '1rem', // Add bottom padding for better spacing
+              <CardMedia
+                component="img"
+                image={article.image}
+                alt={article.title}
+                sx={{
+                  objectFit: 'cover', 
+                  height: '450px', 
+                  width: '100%', 
                 }}
-              >
-                {article.title}
-              </a>
-            </Box>
-          </Card>
+              />
+              
+             
+              <Box
+                  sx={{
+                    position: 'absolute',
+                    bottom: 0, 
+                    width: '100%',
+                    height: '100%',
+                    display: 'flex', 
+                    flexDirection: 'column',
+                    justifyContent: 'center',
+                    alignItems: 'center', 
+                    background: 'rgba(0, 0, 0, 0.5)', 
+                    color: 'white',
+                    padding: 7,
+                    borderRadius: 2,
+                  }}
+                >
+                  <Typography
+                    variant="h6"
+                    component="div"
+                    sx={{
+                      fontWeight: 'bold',
+                      fontSize: isMobile ? '1.5rem' : isTablet ? '1.75rem' : '2.0rem',
+                      textAlign: 'left',
+                      lineHeight: 1.3,
+                    }}
+                  >
+                    {article.title}
+                  </Typography>
+
+                  <Typography
+                    variant="body2"
+                    sx={{
+                      marginTop: 1,
+                      fontSize: isMobile ? '1rem' : isTablet ? '1.125rem' : '1.25rem',
+                      color: 'white',
+                      margintop: 2,
+                      marginBottom: 2,
+                      textAlign: 'left', 
+                    }}
+                  >
+                    {trimDescription(article.description, 12)}
+                  </Typography>
+
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    sx={{ marginTop: 2, alignSelf: 'flex-start',}}
+                    href={`/story/${article.slug}`}
+                  >
+                    Read More
+                  </Button>
+                </Box>
+            </Card>
+          </motion.div>
         ))}
       </Box>
+
+      <a
+          href="stories"
+          style={{
+            textDecoration: 'none', 
+          }}
+        >
+          <Typography
+            variant="h2"
+            color={'black'}
+            sx={{
+              mb: 11, 
+              mt: 0, 
+              textTransform: 'uppercase', 
+              fontWeight: 'bold',
+              fontSize: '1.2rem', 
+              display: 'flex', 
+              justifyContent: 'flex-end', 
+              textDecoration: 'underline', 
+            }}
+          >
+            Explore More
+          </Typography>
+        </a>
+
     </div>
   );
 };
 
 const App = () => {
-  const theme = createTheme(); // You can customize the theme if needed
+  const theme = createTheme();
   return (
     <ThemeProvider theme={theme}>
       <Story />
