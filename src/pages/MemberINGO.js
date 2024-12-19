@@ -177,8 +177,6 @@ const MemberINGO = () => {
                 </div>
             </div>
 
-
-        
         {filteredContent && filteredContent.length > 0 ? (
           <DataTable
             title="Members INGOs"

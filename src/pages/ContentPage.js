@@ -40,9 +40,6 @@ const ContentPage = () => {
 
   if (error) return <div>{error}</div>;
 
-
-  // console.log(content.image);
-
   return (
  <>
 

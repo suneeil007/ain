@@ -16,42 +16,59 @@ import StoryDetail from './components/Story/StoryDetail';
 import MemberINGO from './pages/MemberINGO';
 
 function App() {
-  const [loading, setLoading] = useState(true); 
-  const [showBanner, setShowBanner] = useState(false); 
-  const [showContent, setShowContent] = useState(false); 
+  const [loading, setLoading] = useState(true);
+  const [showBanner, setShowBanner] = useState(false);
+  const [showContent, setShowContent] = useState(false);
+  const [showFooter, setShowFooter] = useState(false); 
   const location = useLocation();
 
   useEffect(() => {
-    const navbarTimeout = setTimeout(() => {
-      setLoading(false); 
-    }, 0); 
-
-    const bannerTimeout = setTimeout(() => {
-      if (location.pathname === '/') {
-        setShowBanner(true); 
-      }
-    }, 1000); 
-
-    const contentTimeout = setTimeout(() => {
-      setShowContent(true); 
-    }, 2000); 
+   
+    setLoading(true);
+    setShowBanner(false);
+    setShowContent(false);
+    setShowFooter(false);
 
     
+    setTimeout(() => {
+      setLoading(false); 
+    }, 0);
+
+    
+    if (location.pathname === '/') {
+      setTimeout(() => {
+        setShowBanner(true);
+      }, 1000);
+    }
+
+    
+    setTimeout(() => {
+      setShowContent(true);
+    }, 2000); 
+
+   
+    setTimeout(() => {
+      setShowFooter(true);
+    }, 2500);
+
+   
     return () => {
-      clearTimeout(navbarTimeout);
-      clearTimeout(bannerTimeout);
-      clearTimeout(contentTimeout);
+      setLoading(false);
+      setShowBanner(false);
+      setShowContent(false);
+      setShowFooter(false);
     };
-  }, [location]); 
+  }, [location]);
 
   return (
     <HelmetProvider>
       <div id="app">
         <Navbar />
-        
+
         <main>
+    
           {showBanner && location.pathname === '/' && <Banner />}
-          
+
           {showContent && (
             <Routes>
               <Route path="/" element={
@@ -69,12 +86,12 @@ function App() {
               <Route path="/stories" element={<StoryList />} />
               <Route path="/story/:slug" element={<StoryDetail />} />
               <Route path="/members" element={<MemberINGO />} />
-              
             </Routes>
           )}
         </main>
 
-        {showContent && location.pathname == '/' && <Footer />}
+    
+        {showFooter && <Footer />}
       </div>
     </HelmetProvider>
   );

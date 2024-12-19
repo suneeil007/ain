@@ -8,7 +8,6 @@ const Banner = () => {
   const [bannerData, setBannerData] = useState([]);
 
   useEffect(() => {
-    // Fetch data from the API
     axios.get('https://intellisoftnepal.com.np/ain/public/api/banners')
       .then((response) => {
         if (response.data.success) {
@@ -21,15 +20,15 @@ const Banner = () => {
   }, []);
 
   const settings = {
-    dots: true, // Show navigation dots
+    dots: true,
     infinite: true,
     speed: 1000,
     autoplay: true,
-    autoplaySpeed: 4000, // 4 seconds per slide
+    autoplaySpeed: 4000,
     slidesToShow: 1,
     slidesToScroll: 1,
-    fade: true, // Enable fade animation
-    arrows: false, // Hide next/prev arrows (optional)
+    fade: true, 
+    arrows: false, 
   };
 
   const textAnimation = {
@@ -54,7 +53,7 @@ const Banner = () => {
           <Box
             sx={{
               maxWidth: '50%',
-              backgroundColor: 'rgba(0, 0, 0, 0.5)', // Cloudy effect with semi-transparent black
+              backgroundColor: 'rgba(0, 0, 0, 0.5)',
               borderRadius: '8px',
               padding: '35px',
             }}
@@ -71,9 +70,9 @@ const Banner = () => {
                 sx={{
                   mb: 2,
                   fontSize: {
-                    xs: '1.5rem',  // Font size for mobile
-                    sm: '2rem',    // Font size for small devices (tablets)
-                    md: '2.25rem', // Font size for medium and larger devices
+                    xs: '1.5rem',  
+                    sm: '2rem',    
+                    md: '2.25rem', 
                   },
                 }}
               >

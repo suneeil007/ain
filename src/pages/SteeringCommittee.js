@@ -176,8 +176,6 @@ const SteeringCommittee = () => {
                     />
                 </div>
             </div>
-
-
         
         {filteredContent && filteredContent.length > 0 ? (
           <DataTable
