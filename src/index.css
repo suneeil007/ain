@@ -14764,7 +14764,7 @@ footer .content {
 }
 
 footer p {
-  font-size: 12px !important;
+  font-size: 25px !important;
 }
 
 .active-lg{
@@ -14833,6 +14833,12 @@ footer p {
   padding: 300px 0 300px !important;
 }
 
+.breadcrumb__news_bg {
+  background-size: cover;
+  background-position: center;
+  padding: 150px 0 150px !important;
+}
+
 .custom-swiper {
   max-width: 100%;
   position: relative;
@@ -14894,18 +14900,23 @@ footer p {
   font-size: 5em;
 }
 
+.breadcrumb_news_title{
+  font-weight: bolder;
+  font-size: 3em;
+}
+
 .content-details {
   font-size: 18px;
 }
 
 .swiper-pagination {
-  position: absolute !important;  /* Make sure it's positioned absolutely */
-  bottom: 0 !important;  /* Position it to the bottom */
+  position: absolute !important;  
+  bottom: 0 !important; 
   display: flex;
   justify-content: center;
   gap: 10px;
-  z-index: 9999999999 !important;  /* High z-index */
-  padding-bottom: 20px;  /* Space below pagination */
+  z-index: 9999999999 !important;  
+  padding-bottom: 20px;  
 }
 
 .swiper-wrapper {
@@ -14914,4 +14925,29 @@ footer p {
 
 .swiper-slide {
   overflow: visible !important;
+}
+
+.footer_input {
+  padding: 15px !important;
+}
+
+.footerDown p, h6 {
+  color: #fff !important;
+}
+
+
+/* Styles for sticky footer */
+html, body {
+  height: 100%;
+  margin: 0;
+}
+
+#app {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh; /* Ensure the app occupies full viewport height */
+}
+
+main {
+  flex: 1; /* Ensures the content area grows and takes available space */
 }

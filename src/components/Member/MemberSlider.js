@@ -76,7 +76,6 @@ const MemberSlider = () => {
             ))}
           </Swiper>
         </div>
-
               <a
                   href="members"
                   style={{

@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import ModuleBreadcrumbs from '../Breadcrumb/ModuleBreadcrumbs'; // Correct relative import
 import axios from 'axios';
 import moment from 'moment';
+import { Helmet } from 'react-helmet-async';
 
 const StoryDetail = () => {
   const { slug } = useParams();
@@ -46,6 +47,11 @@ const StoryDetail = () => {
 
   return (
     <>
+
+         <Helmet>
+            <title>{content.title}</title>
+          </Helmet>
+    
         <ModuleBreadcrumbs
             title={content.title}
             backgroundImage={content.image}

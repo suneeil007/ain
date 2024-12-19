@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
+import NewsBrumb from '../Breadcrumb/NewsBrumb';
+import moment from 'moment';
+import { Helmet } from 'react-helmet-async';
 
 const NewsDetail = () => {
   const { slug } = useParams();
@@ -13,7 +16,7 @@ const NewsDetail = () => {
       try {
         setLoading(true);
         const response = await axios.get(`https://intellisoftnepal.com.np/ain/public/api/news/${slug}`);
-        setContent(response.data.news); // Ensure you access the "page" property
+        setContent(response.data.news); 
         setLoading(false);
       } catch (err) {
         setError('Failed to load content');
@@ -32,21 +35,37 @@ const NewsDetail = () => {
     );
   };
 
-  if (loading) return <div>Loading content...</div>;
+  if (loading) return <div></div>;
   if (error) return <div>{error}</div>;
 
   return (
-    <div className="container mt-4"> 
-      <h1>{content.title}</h1>
-      <p>{content.keywords}</p>
+    <>
+      <Helmet>
+          <title>{content.title}</title>
+        </Helmet>
 
-      <div
-        className="content-details"
-        dangerouslySetInnerHTML={{ __html: updateIframeWidth(content.description) }}
+      <NewsBrumb
+          title={content.title}
+          backgroundImage={content.image}
       />
 
-      {content.image && <img src={content.image} alt={content.title}/>}
-    </div>
+      <div className="container mt-4"
+           style={{
+            paddingBottom: "45px"
+           }}> 
+        
+        <p>
+        <i class="fa fa-calendar-check-o" aria-hidden="true" style={{marginRight: 5, display:'inline-block'}}></i>
+          {moment(content.created_at).format('MMM D, YYYY')}
+        </p>
+
+        <div
+          className="content-details"
+          dangerouslySetInnerHTML={{ __html: updateIframeWidth(content.description) }}
+        />
+
+      </div>
+    </>
   );
 };
 

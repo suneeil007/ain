@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Box, Card, CardMedia, Typography, Button, useMediaQuery, ThemeProvider, createTheme } from '@mui/material';
 import 'bootstrap/dist/css/bootstrap.min.css'; 
 import { motion } from 'framer-motion'; 
+import { Helmet } from 'react-helmet-async';
 import Breadcrumb from '../Breadcrumb/Breadcrumb';
 import axios from 'axios';
 
@@ -38,6 +39,12 @@ const Story = () => {
 
   return (
     <>
+
+        <Helmet>
+            <title>Our stories</title>
+          </Helmet>
+
+
       <Breadcrumb
         title="Featured Stories"
         backgroundImage=""
@@ -195,7 +202,7 @@ const Story = () => {
                     fontSize: isMobile ? '1.5rem' : isTablet ? '1.75rem' : '1.4rem',
                     textAlign: 'center',
                     lineHeight: 1.4,
-                    transition: 'color 0.3s ease-in-out', // Smooth color transition
+                    transition: 'color 0.3s ease-in-out', 
                     }}
                 >
                     {article.title}

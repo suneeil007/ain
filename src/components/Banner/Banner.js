@@ -65,7 +65,18 @@ const Banner = () => {
               animate="visible"
               variants={textAnimation}
             >
-              <Typography variant="h3" color={banner.title_color || 'white'} sx={{ mb: 2 }}>
+              <Typography
+                variant="h3"
+                color={banner.title_color || 'white'}
+                sx={{
+                  mb: 2,
+                  fontSize: {
+                    xs: '1.5rem',  // Font size for mobile
+                    sm: '2rem',    // Font size for small devices (tablets)
+                    md: '2.25rem', // Font size for medium and larger devices
+                  },
+                }}
+              >
                 {banner.title}
               </Typography>
               <Typography variant="h6" color={banner.description_color || 'white'} sx={{ mb: 4 }}>

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { Card, CardMedia, Typography, Button } from '@mui/material';
+import { Card, CardMedia, Typography } from '@mui/material';
 import axios from 'axios';
+import moment from 'moment';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 export default function News() {
@@ -47,7 +48,7 @@ export default function News() {
         {featuredNews && (
           <div style={{ flex: 1, minWidth: '300px', marginBottom: '20px' }}>
             <Card sx={{ height: '100%', position: 'relative', color: 'white' }}>
-              <div style={{ position: 'relative', height: '550px', overflow: 'hidden' }}>
+              <div style={{ position: 'relative', height: '565px', overflow: 'hidden' }}>
                 <CardMedia
                   sx={{
                     height: '100%',
@@ -78,10 +79,12 @@ export default function News() {
                       color: '#fff',
                       textAlign: 'center',
                       fontSize: '1.5em',
+                      fontWeight: 'bolder',
                     }}
                   >
-                    7 July, <br />
-                    2024
+                     {moment(featuredNews.created_at).format('MMM D ')} 
+                      <br />
+                     {moment(featuredNews.created_at).format('YYYY')}
                   </Typography>
                 </div>
 
@@ -103,9 +106,9 @@ export default function News() {
                   }}
                 >
                   <Typography
-                    variant="h5"
+                    variant="h4"
                     component="a"
-                    href={featuredNews.url || '#'}
+                    href={`/news/${featuredNews.slug}`}
                     gutterBottom
                     sx={{ textDecoration: 'none', color: 'inherit' }}
                   >
@@ -114,14 +117,14 @@ export default function News() {
 
                   <div style={{ display: 'flex', alignItems: 'center', marginBottom: '8px', color: 'white' }}>
                     <i className="fa fa-clock-o" aria-hidden="true" style={{ fontSize: '1.3em' }}></i>
-                    <Typography variant="body1" style={{ fontSize: '1em', color: 'white', marginLeft: '0.4em' }}>
+                    <Typography variant="body1" style={{ fontSize: '1.1em', color: 'white', marginLeft: '0.4em' }}>
                       {featuredNews.location || 'Location not available'}
                     </Typography>
                   </div>
 
                   <div style={{ display: 'flex', alignItems: 'center', color: 'white' }}>
                     <i className="fa fa-map-marker" aria-hidden="true" style={{ fontSize: '1.3em' }}></i>
-                    <Typography variant="body1" style={{ fontSize: '1em', color: 'white', marginLeft: '0.4em' }}>
+                    <Typography variant="body1" style={{ fontSize: '1.1em', color: 'white', marginLeft: '0.4em' }}>
                       {featuredNews.time || 'Time not available'}
                     </Typography>
                   </div>
@@ -150,28 +153,39 @@ export default function News() {
                   overflow: 'hidden',
                   flexDirection: 'row',
                   padding: '16px',
-                  gap: '20px',
+                  gap: '26px',
                   width: '100%',
                 }}
               >
                 <div style={{ flex: 0, minWidth: '100px', textAlign: 'center' }}>
-                  <Typography
+                <Typography
                     variant="body2"
                     sx={{
                       color: '#000',
                       fontSize: '1.2em',
+                      fontWeight: 'bolder',
+                      lineHeight: '1.5',
                     }}
                   >
-                    7 July, <br />
-                    2024
+                    <span
+                      style={{
+                        fontSize: '1.3em', // Larger size for "7 July,"
+                        fontWeight: 'bold',
+                      }}
+                    >
+                      {moment(news.created_at).format('MMM D ')}
+                    </span>
+                    <br />
+                     {moment(news.created_at).format('YYYY')}
                   </Typography>
                 </div>
 
+
                 <div style={{ flex: 1 }}>
                   <Typography
-                    variant="h6"
+                    variant="h5"
                     component="a"
-                    href={news.url || '#'}
+                    href={`/news/${news.slug}`}
                     sx={{ textDecoration: 'none', color: 'inherit', fontWeight: 'bolder' }}
                   >
                     {news.title}
@@ -186,14 +200,14 @@ export default function News() {
                     }}
                   >
                     <i className="fa fa-clock-o" aria-hidden="true" style={{ fontSize: '1.3em' }}></i>
-                    <Typography variant="body1" style={{ fontSize: '1em', color: 'black', marginLeft: '0.4em' }}>
+                    <Typography variant="body1" style={{ fontSize: '1.1em', color: 'black', marginLeft: '0.4em' }}>
                       {featuredNews.location || 'Location not available'}
                     </Typography>
                   </div>
 
                   <div style={{ display: 'flex', alignItems: 'center', color: 'black' }}>
                     <i className="fa fa-map-marker" aria-hidden="true" style={{ fontSize: '1.3em' }}></i>
-                    <Typography variant="body1" style={{ fontSize: '1em', color: 'black', marginLeft: '0.4em' }}>
+                    <Typography variant="body1" style={{ fontSize: '1.1em', color: 'black', marginLeft: '0.4em' }}>
                       {featuredNews.time || 'Time not available'}
                     </Typography>
                   </div>

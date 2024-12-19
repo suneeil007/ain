@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
+import { Helmet } from 'react-helmet-async';
 import Breadcrumb from '../components/Breadcrumb/Breadcrumb';
+
 
 const ContentPage = () => {
   const { slug } = useParams();
@@ -43,14 +45,26 @@ const ContentPage = () => {
 
   return (
  <>
+
+      <Helmet>
+        <title>{content.title}</title>
+        <meta name="description" content={content.keywords || 'No description available'} />
+        <meta name="keywords" content={content.keywords || 'content, page, react'} />
+        {content.image && <meta property="og:image" content={content.image} />}
+      </Helmet>
+
+      
     <Breadcrumb
     title={content.title}
     backgroundImage={content.image}
     />
 
-    <div className="container mt-4"> 
-      <h1>{content.title}</h1>
-      <p>{content.keywords}</p>
+    <div className="container"
+         style={{
+          paddingTop: '55px',
+          paddingBottom: '55px',
+         }}> 
+
 
      
       <div

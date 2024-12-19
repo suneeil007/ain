@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
+import { SettingsContext } from '../../context/SettingsContext';
 import axios from 'axios';
 
 const Header = () => {
@@ -19,6 +20,18 @@ const Header = () => {
       [menuIndex]: !prevState[menuIndex],
     }));
   };
+
+  const { settings } = useContext(SettingsContext);
+
+    // Handle the image load event
+    const handleImageLoad = () => {
+      setLoading(false); // Hide loader when image is loaded
+    };
+
+    // Handle the image error event
+    const handleImageError = () => {
+      setLoading(false); // Hide loader if there's an error with loading the image
+    };
 
   // Manage body class for mobile menu visibility
   useEffect(() => {
@@ -118,11 +131,11 @@ const Header = () => {
           <div className="tg-header__logo-wrap">
             <div className="logo">
               <a href="/">
-                <img
-                  src="https://ain.org.np/public/images/logo.png"
-                  alt="AIN Logo"
-                  style={{ width: '55%', display: 'block' }}
-                />
+                  <img
+                     src={settings?.data?.[0]?.logo} 
+                     alt="Logo" 
+                     style={{ width: '55%', display: 'block' }}
+                  />
               </a>
             </div>
           </div>
@@ -130,8 +143,11 @@ const Header = () => {
             <div id="sticky-header" className={`tg-header__area tg-header__area-two ${isSticky ? 'sticky-menu' : ''}`}>
               <nav className="tgmenu__nav">
                 <div className="logo d-none">
-                  <a href="#">
-                    <img src="https://ain.org.np/public/images/logo.png" alt="Logo" />
+                  <a href="/">
+                    <img
+                      src={settings?.data?.[0]?.logo} 
+                      alt="Logo" 
+                       />
                   </a>
                 </div>
 
@@ -184,7 +200,10 @@ const Header = () => {
           </div>
           <div className="nav-logo">
             <a href="/">
-              <img src="https://ain.org.np/public/images/logo.png" alt="Logo" />
+            <img
+                      src={settings?.data?.[0]?.logo} 
+                      alt="Logo" 
+                      style={{ width: '55%', display: 'block' }} />
             </a>
           </div>
           <ul className="navigation">
