@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import { Helmet } from 'react-helmet-async';
 import Breadcrumb from '../components/Breadcrumb/Breadcrumb';
 import DataTable from 'react-data-table-component'; 
+import { SettingsContext } from '../context/SettingsContext';
 
 const MemberINGO = () => {
   const { slug } = useParams();
@@ -11,6 +12,8 @@ const MemberINGO = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [searchQuery, setSearchQuery] = useState(''); 
+
+  const { settings } = useContext(SettingsContext);
 
   useEffect(() => {
     const fetchContent = async () => {
@@ -152,7 +155,7 @@ const MemberINGO = () => {
         <title>Members INGOs</title>
       </Helmet>
 
-      <Breadcrumb title='Members INGOs' backgroundImage='' />
+      <Breadcrumb title='Members INGOs' backgroundImage={settings?.data?.[0]?.team_bg} />
 
       <div className="container mt-4"
            style={{

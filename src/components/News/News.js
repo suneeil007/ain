@@ -3,6 +3,7 @@ import { Card, CardMedia, Typography } from '@mui/material';
 import axios from 'axios';
 import moment from 'moment';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import ExploreMoreButton from '../Buttons/ExploreMoreButton';
 
 export default function News() {
   const [newsList, setNewsList] = useState([]);
@@ -218,30 +219,13 @@ export default function News() {
         </div>
                        
       </div>
-          <div className="container">
-                      <a
-                          href="news"
-                          style={{
-                            textDecoration: 'none', 
-                          }}
-                        >
-                          <Typography
-                            variant="h2"
-                            color={'black'}
-                            sx={{
-                              paddingBottom: 2, 
-                              mt: 0, 
-                              textTransform: 'uppercase', 
-                              fontWeight: 'bold',
-                              fontSize: '1.2rem', 
-                              display: 'flex', 
-                              justifyContent: 'flex-end', 
-                              textDecoration: 'underline', 
-                            }}
-                          >
-                            Explore More
-                          </Typography>
-                        </a>
+          <div className="container d-flex justify-content-end">
+                      <ExploreMoreButton 
+                        href="/news" 
+                        label="Explore More" 
+                        color="black" 
+                        hoverColor="#f39c12"
+                      />
              </div>                        
     </section>
   );

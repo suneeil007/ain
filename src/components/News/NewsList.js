@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import Card from 'react-bootstrap/Card';
 import Breadcrumb from '../Breadcrumb/Breadcrumb';
@@ -6,12 +6,14 @@ import axios from 'axios';
 import { Helmet } from 'react-helmet-async';
 import { motion } from 'framer-motion';
 import moment from 'moment';
+import { SettingsContext } from '../../context/SettingsContext';
 
 const NewsList = () => {
   const { slug } = useParams();
   const [content, setContent] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const { settings } = useContext(SettingsContext);
 
   useEffect(() => {
     const fetchContent = async () => {
@@ -38,7 +40,7 @@ const NewsList = () => {
         <title>News AND EVENTS</title>
       </Helmet>
 
-      <Breadcrumb title="News And Events" backgroundImage="" />
+      <Breadcrumb title="News And Events" backgroundImage={settings?.data?.[0]?.team_bg} />
       <div className="container">
         <div
           className="row"
@@ -119,7 +121,7 @@ const NewsList = () => {
             position: absolute;
             bottom: 10px;
             left: 10px;
-            background-color: rgba(0, 0, 0, 0.7);
+            background-color: rgba(0, 49, 83, 0.8);
             color: #fff;
             padding: 10px 20px;
             border-radius: 5px;

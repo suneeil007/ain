@@ -2040,7 +2040,7 @@ textarea {
   padding-right: 30px;
   max-width: 100%;
   height: 100%;
-  z-index: 99;
+  z-index: 9999;
   border-radius: 0px;
   transition: all 0.3s cubic-bezier(0.785, 0.135, 0.15, 0.86);
   -moz-transition: all 0.3s cubic-bezier(0.785, 0.135, 0.15, 0.86);
@@ -14765,6 +14765,22 @@ footer .content {
 
 footer p {
   font-size: 25px !important;
+  margin-bottom: 0px;
+}
+
+footer a {
+  text-decoration: none;
+}
+
+.footerABT a {
+  color:rgb(143 149 156) !important;
+  display: block;
+  line-height: 33px;
+  font-size: 17px;
+}
+
+.footerABT a:hover {
+  color:#ffca08 !important;
 }
 
 .active-lg{
@@ -14935,8 +14951,6 @@ footer p {
   color: #fff !important;
 }
 
-
-/* Styles for sticky footer */
 html, body {
   height: 100%;
   margin: 0;
@@ -14945,9 +14959,36 @@ html, body {
 #app {
   display: flex;
   flex-direction: column;
-  min-height: 100vh; /* Ensure the app occupies full viewport height */
+  min-height: 100vh; 
 }
 
 main {
-  flex: 1; /* Ensures the content area grows and takes available space */
+  flex: 1; 
 }
+
+
+
+.loaderGIf{
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 9999;
+  background-color: rgba(255, 255, 255, 0.8); 
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100vw;
+  height: 100vh;
+}
+
+.footerABT h6 {
+  color: #7d9fce !important;
+}
+
+.FooterINFO p {
+  line-height: 45px;
+}
+
+
+

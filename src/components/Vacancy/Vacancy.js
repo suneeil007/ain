@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Typography, Card, CardContent } from "@mui/material";
 import { motion } from "framer-motion";
+import ExploreMoreButton from "../Buttons/ExploreMoreButton";
 
 const fadeInVariants = {
   hidden: { opacity: 0, x: 30 },
@@ -8,35 +9,45 @@ const fadeInVariants = {
 };
 
 const Vacancy = () => {
-  const vacancies = [
-    {
-      id: 1,
-      title: "Software Engineer",
-      location: "Kathmandu, Nepal",
-      type: "Full-time",
-    },
-    {
-      id: 2,
-      title: "Marketing Specialist",
-      location: "Pokhara, Nepal",
-      type: "Part-time",
-    },
-    {
-      id: 3,
-      title: "Data Analyst",
-      location: "Lalitpur, Nepal",
-      type: "Full-time",
-    },
-    {
-      id: 4,
-      title: "Graphic Designer",
-      location: "Bhaktapur, Nepal",
-      type: "Remote",
-    },
-  ];
+  const [vacancies, setVacancies] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const fetchVacancies = async () => {
+      try {
+        const response = await fetch("https://intellisoftnepal.com.np/ain/public/api/career");
+        if (!response.ok) {
+          throw new Error("Failed to fetch vacancies");
+        }
+        const data = await response.json();
+        if (data.success && Array.isArray(data.data)) {
+          setVacancies(data.data);
+        } else {
+          setVacancies([]); 
+        }
+      } catch (err) {
+        setError(err.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchVacancies();
+  }, []);
+
+  if (loading) {
+    return <Typography variant="h5">Loading vacancies...</Typography>;
+  }
+
+  if (error) {
+    return <Typography variant="h5" color="error">{`Error: ${error}`}</Typography>;
+  }
 
   return (
-    <section style={{ width: "100%", backgroundColor: "#fff", padding: "20px 0 40px 0" }}>
+    <section
+      style={{ width: "100%", backgroundColor: "#fff", padding: "20px 0 40px 0" }}
+    >
       <div className="container">
         <Typography
           variant="h2"
@@ -67,9 +78,9 @@ const Vacancy = () => {
               animate="visible"
               variants={fadeInVariants}
               style={{
-                flex: "1 1 calc(50% - 30px)", // 2 items per row on medium screens
-                maxWidth: "calc(50% - 30px)", // Same as above
-                marginBottom: "20px", // Adding space at the bottom
+                flex: "1 1 calc(50% - 30px)",
+                maxWidth: "calc(50% - 30px)",
+                marginBottom: "20px",
               }}
             >
               <Card
@@ -89,7 +100,7 @@ const Vacancy = () => {
                     alignItems: "center",
                     justifyContent: "space-between",
                     gap: "20px",
-                    flexDirection: { xs: "column", sm: "row" }, // Stack on small screens
+                    flexDirection: { xs: "column", sm: "row" },
                   }}
                 >
                   <div
@@ -104,14 +115,16 @@ const Vacancy = () => {
                       color="#fff"
                       sx={{ fontWeight: "bold", lineHeight: "1" }}
                     >
-                      28
+                      {new Date(vacancy.deadline).getDate()}
                     </Typography>
                     <Typography
                       variant="body1"
                       color="#fff"
                       sx={{ fontSize: "1.4rem", lineHeight: "1.2" }}
                     >
-                      July
+                      {new Date(vacancy.deadline).toLocaleString("default", {
+                        month: "short",
+                      })}
                     </Typography>
                   </div>
 
@@ -124,7 +137,7 @@ const Vacancy = () => {
                         marginBottom: "8px",
                       }}
                     >
-                      Company Name: {vacancy.location}
+                      {vacancy.company_name}
                     </Typography>
 
                     <Typography
@@ -133,7 +146,7 @@ const Vacancy = () => {
                       fontWeight="bold"
                       color="#fff"
                       sx={{
-                        fontSize: { xs: "1.2rem", sm: "1.5rem" }, // Adjust title size for smaller screens
+                        fontSize: { xs: "1.2rem", sm: "1.5rem" },
                       }}
                     >
                       {vacancy.title}
@@ -148,7 +161,9 @@ const Vacancy = () => {
                     }}
                   >
                     <a
-                      href="#"
+                      href={vacancy.url || vacancy.document || "#"}
+                      target="_blank"
+                      rel="noopener noreferrer"
                       style={{
                         textDecoration: "none",
                         display: "inline-flex",
@@ -179,29 +194,17 @@ const Vacancy = () => {
           ))}
         </div>
 
-        <a
-          href="vacancies"
-          style={{
-            textDecoration: "none",
-          }}
-        >
-          <Typography
-            variant="h2"
-            color="black"
-            sx={{
-              marginTop: "60px",
-              marginBottom: "60px",
-              textTransform: "uppercase",
-              fontWeight: "bold",
-              fontSize: "1.2rem",
-              display: "flex",
-              justifyContent: "flex-end",
-              textDecoration: "underline",
-            }}
-          >
-            Explore More
-          </Typography>
-        </a>
+        
+        <div className="d-flex justify-content-end mt-4"
+             style={{paddingBottom: "45px"}}>
+                             <ExploreMoreButton 
+                               href="/vacancy" 
+                               label="Explore More" 
+                               color="black" 
+                               hoverColor="#f39c12"
+                             />
+                    </div>  
+
       </div>
     </section>
   );

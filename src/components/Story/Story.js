@@ -3,6 +3,7 @@ import { Box, Card, CardMedia, Typography, Button, useMediaQuery, ThemeProvider,
 import 'bootstrap/dist/css/bootstrap.min.css'; 
 import { motion } from 'framer-motion'; 
 import axios from 'axios';
+import ExploreMoreButton from '../Buttons/ExploreMoreButton';
 
 const Story = () => {
   const [storyArticles, setStoryArticles] = useState([]);
@@ -130,7 +131,7 @@ const trimDescription = (description, wordLimit = 15) => {
                     sx={{
                       marginTop: 1,
                       fontSize: isMobile ? '1rem' : isTablet ? '1.125rem' : '1.25rem',
-                      color: 'white',
+                      color: '#c9cccf',
                       margintop: 2,
                       marginBottom: 2,
                       textAlign: 'left', 
@@ -153,29 +154,15 @@ const trimDescription = (description, wordLimit = 15) => {
         ))}
       </Box>
 
-      <a
-          href="stories"
-          style={{
-            textDecoration: 'none', 
-          }}
-        >
-          <Typography
-            variant="h2"
-            color={'black'}
-            sx={{
-              mb: 11, 
-              mt: 0, 
-              textTransform: 'uppercase', 
-              fontWeight: 'bold',
-              fontSize: '1.2rem', 
-              display: 'flex', 
-              justifyContent: 'flex-end', 
-              textDecoration: 'underline', 
-            }}
-          >
-            Explore More
-          </Typography>
-        </a>
+     <div className="d-flex justify-content-end"
+                  style={{paddingBottom: "90px"}}>
+                                  <ExploreMoreButton 
+                                    href="/stories" 
+                                    label="Explore More" 
+                                    color="black" 
+                                    hoverColor="#f39c12"
+                                  />
+                         </div>  
 
     </div>
   );

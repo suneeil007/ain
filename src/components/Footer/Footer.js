@@ -6,13 +6,13 @@ export default function Footer() {
   
   const { settings } = useContext(SettingsContext);
 
-  console.log('Settings', settings)
+  // console.log('Settings', settings)
 
   return (
     <footer className="bg-light text-center text-lg-start text-muted">
 
       <section
-        className="d-flex justify-content-center justify-content-lg-between  border-bottom"
+        className="d-flex justify-content-center justify-content-lg-between"
         style={{
           position: "relative",
           backgroundImage: 'url("../footer_bg.jpg")', 
@@ -55,7 +55,7 @@ export default function Footer() {
 
           <div className="row">
         
-          <div className="col-md-6 col-lg-6 col-xl-6 mx-auto mb-4">
+          <div className="col-md-6 col-lg-6 col-xl-6 mx-auto mb-4 FooterINFO">
         <p style={{ fontSize: '3em', color: 'white', fontWeight: 'bold' }}>
           <i className="fa fa-map-marker me-4" aria-hidden="true"></i>
             {settings?.data?.[0]?.head_office}
@@ -78,7 +78,11 @@ export default function Footer() {
           reshma@ain.org.np
         </p>
 
-        <p style={{ fontSize: '1.5em', color: 'white', fontWeight: 'bolder' }}>Follow us on</p>
+        <p style={{ fontSize: '1.5em', 
+                    color: 'white',
+                    marginTop: "10px", 
+                    marginBottom: "10px",
+                    fontWeight: 'bolder' }}>Follow us on</p>
 
          <p>
           <a href="https://www.facebook.com" style={{ textDecoration: "none" }}>
@@ -88,8 +92,8 @@ export default function Footer() {
                 backgroundColor: "#fff",
                 padding: "10px",
                 borderRadius: "5px",
-                color: "#3b5998", // Facebook color
-                fontSize: "1.5em", // Adjust icon size if needed
+                color: "#3b5998", 
+                fontSize: "1em", 
               }}
             ></i>
           </a>
@@ -100,8 +104,8 @@ export default function Footer() {
                 backgroundColor: "#fff",
                 padding: "10px",
                 borderRadius: "5px",
-                color: "#ff0000", // YouTube color
-                fontSize: "1.5em", // Adjust icon size if needed
+                color: "#ff0000", 
+                fontSize: "1em", 
               }}
             ></i>
           </a>
@@ -134,10 +138,10 @@ export default function Footer() {
       <section style={{
         backgroundColor: "rgba(0, 0, 0, 0.9)",
       }}>
-        <div className="container text-center text-md-start footerDown py-5">
+        <div className="container text-center text-md-start  py-5">
           <div className="row">
           <div
-              className="col-md-3 col-lg-4 col-xl-3 mb-4"
+              className="col-md-3 col-lg-3 col-xl-3 mb-4"
               style={{
                 display: "flex",
                 alignItems: "center",
@@ -147,65 +151,65 @@ export default function Footer() {
             >
               <img
                 src="https://ain.org.np/public/images/logo.png"
-                style={{ width: "50%" }}
+                style={{ width: "40%" }}
                 alt="Logo"
               />
             </div>
-            <div className="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
+            <div className="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4 footerABT">
               <h6 className="text-uppercase fw-bold mb-4">About Us</h6>
-              <p>
+            
                 <a href="#!" className="text-reset">
-                  Angular
+                What is AIN? - Video
                 </a>
-              </p>
-              <p>
+             
                 <a href="#!" className="text-reset">
-                  React
+                Message from Chairperson
                 </a>
-              </p>
-              <p>
+              
                 <a href="#!" className="text-reset">
-                  Vue
-                </a>
-              </p>
-              <p>
-                <a href="#!" className="text-reset">
-                  Laravel
-                </a>
-              </p>
-            </div>
+                Steering Committee
 
-            <div className="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
+                </a>
+             
+                <a href="#!" className="text-reset">
+                  Members INGOs
+                </a>
+             
+                <a href="#!" className="text-reset">
+                Ain toastmasters Club
+                </a>
+              
+              
+            </div>
+            
+            <div className="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4 footerABT">
               <h6 className="text-uppercase fw-bold mb-4">Useful links</h6>
-              <p>
+             
                 <a href="#!" className="text-reset">
-                  Pricing
+                  Our Stories
                 </a>
-              </p>
-              <p>
+              
                 <a href="#!" className="text-reset">
-                  Settings
+                  News And Events
                 </a>
-              </p>
-              <p>
+             
                 <a href="#!" className="text-reset">
-                  Orders
+                  Career
                 </a>
-              </p>
-              <p>   
+                
                 <a href="#!" className="text-reset">
                   Help
                 </a>
-              </p>
+              
             </div>
 
-            <div className="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
+            <div className="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4 footerABT">
               <h6 className="text-uppercase fw-bold mb-4">LIKE US ON FACEBOOK</h6>
               <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
                 <iframe
                   src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2Fainnepal%2F&tabs=timeline&width=340&height=500&small_header=false&adapt_container_width=true&hide_cover=false&show_facepile=true&appId=1608952235810011"
                   width="100%"
-                  height="300"
+                  height="190"
                   style={{ border: 'none', overflow: 'hidden' }}
                   scrolling="no"
                   frameBorder="0"
@@ -219,8 +223,11 @@ export default function Footer() {
         </div>
       </section>
 
-      <div className="text-center p-4" style={{ backgroundColor: '#000', color:"#fff" }}>
-      Copyright © 2024 | All Rights Reserved
+      <div className="text-center p-4"
+           style={{ backgroundColor: 'rgb(27 27 29)', 
+                    color:"rgb(143 149 156)",
+                    fontSize: "13px" }}>
+            Copyright © 2024 All Rights Reserved
       </div>
     </footer>
   );

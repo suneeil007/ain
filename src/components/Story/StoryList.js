@@ -1,13 +1,15 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { Box, Card, CardMedia, Typography, Button, useMediaQuery, ThemeProvider, createTheme } from '@mui/material';
 import 'bootstrap/dist/css/bootstrap.min.css'; 
 import { motion } from 'framer-motion'; 
 import { Helmet } from 'react-helmet-async';
 import Breadcrumb from '../Breadcrumb/Breadcrumb';
 import axios from 'axios';
+import { SettingsContext } from '../../context/SettingsContext';
 
 const Story = () => {
   const [storyArticles, setStoryArticles] = useState([]);
+  const { settings } = useContext(SettingsContext);
 
   useEffect(() => {
     axios.get('https://intellisoftnepal.com.np/ain/public/api/stories')
@@ -47,7 +49,7 @@ const Story = () => {
 
       <Breadcrumb
         title="Featured Stories"
-        backgroundImage=""
+        backgroundImage={settings?.data?.[0]?.team_bg}
       />
 
       <div className="container mt-4"> 

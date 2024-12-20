@@ -7,6 +7,7 @@ import axios from "axios";
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
+import ExploreMoreButton from "../Buttons/ExploreMoreButton";
 
 const fadeInVariants = {
   hidden: { opacity: 0, x: 30 }, 
@@ -17,7 +18,6 @@ const MemberSlider = () => {
   const [members, setMembers] = useState([]);
 
   useEffect(() => {
-    
     axios.get("https://intellisoftnepal.com.np/ain/public/api/memberIngos")
       .then((response) => {
         if (response.data && response.data.success) {
@@ -52,7 +52,7 @@ const MemberSlider = () => {
             spaceBetween={10}
             slidesPerView={4}
             pagination={{ clickable: true }}
-            autoplay={{ delay: 2000 }}
+            autoplay={{ delay: 2000, disableOnInteraction: false }} 
             loop
             className="custom-swiper"
           >
@@ -64,7 +64,7 @@ const MemberSlider = () => {
                   initial="hidden"
                   animate="visible"
                 >
-                <a href={member.url || "#"} target="_blank" rel="noopener noreferrer">
+                  <a href={member.url || "#"} target="_blank" rel="noopener noreferrer">
                     <img
                       src={member.image || "https://via.placeholder.com/150"}
                       alt={member.name || "Member"}
@@ -76,29 +76,27 @@ const MemberSlider = () => {
             ))}
           </Swiper>
         </div>
-              <a
-                  href="members"
-                  style={{
-                    textDecoration: 'none', 
-                  }}
-                >
-                  <Typography
-                    variant="h2"
-                    color={'white'}
-                    sx={{
-                      paddingBottom: 15, 
-                      mt: 0, 
-                      textTransform: 'uppercase', 
-                      fontWeight: 'bold',
-                      fontSize: '1.2rem', 
-                      display: 'flex', 
-                      justifyContent: 'flex-end', 
-                      textDecoration: 'underline', 
-                    }}
-                  >
-                    Explore More
-                  </Typography>
-                </a>
+        <div
+          style={{
+            display: 'flex', 
+            justifyContent: 'flex-end', 
+            width: '100%',           
+            paddingBottom: '90px'
+          }}
+        >
+          <ExploreMoreButton
+            href="/members" 
+            label="Explore More" 
+            color="white" 
+            hoverColor="#f39c12"  
+          />
+        </div>
+        {/* Adjust the pagination positioning */}
+        <style jsx>{`
+          .swiper-pagination {
+            margin-top: 120px;  /* Move pagination down */
+          }
+        `}</style>
       </div>
     </section>
   );

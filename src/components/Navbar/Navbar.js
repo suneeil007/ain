@@ -2,6 +2,7 @@ import React, { useState, useEffect, useContext } from 'react';
 import { SettingsContext } from '../../context/SettingsContext';
 import axios from 'axios';
 
+
 const Header = () => {
   const [isMobileMenuVisible, setMobileMenuVisible] = useState(false);
   const [dropdownStates, setDropdownStates] = useState({});
@@ -22,17 +23,7 @@ const Header = () => {
   };
 
   const { settings } = useContext(SettingsContext);
-
-    // Handle the image load event
-    const handleImageLoad = () => {
-      setLoading(false); // Hide loader when image is loaded
-    };
-
-    // Handle the image error event
-    const handleImageError = () => {
-      setLoading(false); // Hide loader if there's an error with loading the image
-    };
-
+ 
   // Manage body class for mobile menu visibility
   useEffect(() => {
     if (isMobileMenuVisible) {
@@ -64,7 +55,7 @@ const Header = () => {
     };
   }, []);
 
-  // Fetch and process menu items from API
+  
   useEffect(() => {
     const fetchMenuItems = async () => {
       try {
@@ -134,7 +125,7 @@ const Header = () => {
                   <img
                      src={settings?.data?.[0]?.logo} 
                      alt="Logo" 
-                     style={{ width: '55%', display: 'block' }}
+                     style={{ width: '53%', display: 'block' }}
                   />
               </a>
             </div>
@@ -203,7 +194,7 @@ const Header = () => {
             <img
                       src={settings?.data?.[0]?.logo} 
                       alt="Logo" 
-                      style={{ width: '55%', display: 'block' }} />
+                      style={{ width: '20%', display: 'block' }} />
             </a>
           </div>
           <ul className="navigation">
@@ -241,42 +232,14 @@ const Header = () => {
             <div className="contact-info">
               <ul className="list-wrap">
                 <li>
-                  <a href="mailto:info@ecoconcern.com.np">info@ecoconcern.com.np</a>
+                  <a href="mailto:{settings?.data?.[0]?.email}">{settings?.data?.[0]?.email}</a>
                 </li>
                 <li>
-                  <a href="tel:977-01-5421513">+977-01-5421513</a>
+                  <a href="tel:{settings?.data?.[0]?.phone}">{settings?.data?.[0]?.phone}</a>
                 </li>
               </ul>
             </div>
-            <div className="social-links">
-              <ul className="list-wrap">
-                <li>
-                  <a href="#">
-                    <i className="fa fa-facebook-f"></i>
-                  </a>
-                </li>
-                <li>
-                  <a href="#">
-                    <i className="fa fa-twitter"></i>
-                  </a>
-                </li>
-                <li>
-                  <a href="#">
-                    <i className="fa fa-instagram"></i>
-                  </a>
-                </li>
-                <li>
-                  <a href="#">
-                    <i className="fa fa-linkedin-in"></i>
-                  </a>
-                </li>
-                <li>
-                  <a href="#">
-                    <i className="fa fa-youtube"></i>
-                  </a>
-                </li>
-              </ul>
-            </div>
+            
           </div>
         </nav>
       </div>
